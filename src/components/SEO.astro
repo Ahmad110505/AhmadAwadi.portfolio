@@ -1,0 +1,57 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string;
+  authorName?: string;
+  authorTitle?: string;
+}
+
+const {
+  title = "Student Portfolio | Developer & Engineer",
+  description = "A professional, responsive portfolio showcasing software engineering projects, education, experience, and skills.",
+  image = "/images/og-cover.jpg",
+  canonicalURL = Astro.url.href,
+  authorName = "Portfolio Owner",
+  authorTitle = "Software Developer",
+} = Astro.props;
+
+const siteName = "Student Portfolio Template";
+
+// Schema.org Person & WebSite JSON-LD
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": authorName,
+  "jobTitle": authorTitle,
+  "url": canonicalURL,
+  "description": description,
+  "sameAs": []
+};
+---
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<meta name="author" content={authorName} />
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={image} />
+<meta property="og:site_name" content={siteName} />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={canonicalURL} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />

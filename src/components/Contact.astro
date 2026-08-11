@@ -1,54 +1,208 @@
 ---
 import profileData from '../../content/profile.json';
+
+const {
+  email = "",
+  linkedin = "",
+  github = ""
+} = profileData || {};
+
+const hasContact = email || linkedin || github;
 ---
 
-<section id="contact" class="section">
-  <div class="container">
-    <h2 class="section-title">Contact Me</h2>
-    <div class="contact-card">
-      <div class="contact-item">
-        <i class="fa-solid fa-envelope"></i>
-        <a href={`mailto:${profileData.email}`}>{profileData.email}</a>
+{hasContact && (
+  <section id="contact" class="section" aria-label="Contact Information">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Get In Touch</span>
+        <h2 class="section-title">Contact</h2>
       </div>
-      <div class="contact-item">
-        <i class="fa-brands fa-linkedin"></i>
-        <a href={profileData.linkedin} target="_blank" rel="noopener">LinkedIn Profile</a>
-      </div>
-      <div class="contact-item">
-        <i class="fa-brands fa-github"></i>
-        <a href={profileData.github} target="_blank" rel="noopener">GitHub Profile</a>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          {email && (
+            <div class="contact-item">
+              <div class="contact-icon" aria-hidden="true">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+              <div>
+                <span class="contact-label">Email</span>
+                <a href={`mailto:${email}`} class="contact-link">{email}</a>
+              </div>
+            </div>
+          )}
+
+          {linkedin && (
+            <div class="contact-item">
+              <div class="contact-icon" aria-hidden="true">
+                <i class="fa-brands fa-linkedin"></i>
+              </div>
+              <div>
+                <span class="contact-label">LinkedIn</span>
+                <a href={linkedin} target="_blank" rel="noopener noreferrer" class="contact-link">
+                  {linkedin.replace(/^https?:\/\//, '')}
+                </a>
+              </div>
+            </div>
+          )}
+
+          {github && (
+            <div class="contact-item">
+              <div class="contact-icon" aria-hidden="true">
+                <i class="fa-brands fa-github"></i>
+              </div>
+              <div>
+                <span class="contact-label">GitHub</span>
+                <a href={github} target="_blank" rel="noopener noreferrer" class="contact-link">
+                  {github.replace(/^https?:\/\//, '')}
+                </a>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <form 
+          class="contact-form" 
+          aria-label="Direct Message Form" 
+          onsubmit="alert('Thank you for reaching out!'); return false;"
+        >
+          <h3 class="form-title">Send a Message</h3>
+          <div class="form-group">
+            <label for="contact-name" class="sr-only">Your Name</label>
+            <input type="text" id="contact-name" placeholder="Your Name" required class="form-input" />
+          </div>
+          <div class="form-group">
+            <label for="contact-email" class="sr-only">Your Email</label>
+            <input type="email" id="contact-email" placeholder="Your Email Address" required class="form-input" />
+          </div>
+          <div class="form-group">
+            <label for="contact-message" class="sr-only">Your Message</label>
+            <textarea id="contact-message" placeholder="Your Message..." rows="4" required class="form-input"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            Send Message <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+          </button>
+        </form>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+)}
 
 <style>
-  .contact-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    padding: 2.5rem;
-    border-radius: var(--radius-lg);
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    max-width: 800px;
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    max-width: 1000px;
     margin: 0 auto;
   }
+
+  .contact-card, .contact-form {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .form-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-main);
+  }
+
   .contact-item {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    font-size: 1.05rem;
+    gap: var(--space-md);
   }
-  .contact-item i {
-    color: var(--accent-primary);
+
+  .contact-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--color-brand-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    flex-shrink: 0;
   }
-  .contact-item a {
-    color: var(--text-main);
+
+  .contact-label {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .contact-link {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-main);
     text-decoration: none;
+    font-weight: var(--font-weight-semibold);
+    transition: var(--transition-fast);
   }
-  .contact-item a:hover {
-    color: var(--accent-primary);
+
+  .contact-link:hover {
+    color: var(--color-brand-primary);
+  }
+
+  .form-group {
+    width: 100%;
+  }
+
+  .form-input {
+    width: 100%;
+    background: var(--color-bg-input);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 0.85rem 1.1rem;
+    color: var(--color-text-main);
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-sm);
+    outline: none;
+    transition: var(--transition-fast);
+  }
+
+  .form-input:focus {
+    border-color: var(--color-border-focus);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2xs);
+    padding: 0.85rem;
+    border-radius: var(--radius-sm);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    border: none;
+    transition: var(--transition-normal);
+  }
+
+  .btn-primary {
+    background: var(--color-brand-gradient);
+    color: #ffffff;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+  }
+
+  @media (max-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

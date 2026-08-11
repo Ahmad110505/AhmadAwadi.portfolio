@@ -3,64 +3,82 @@ const files = import.meta.glob('../../content/education/*.json', { eager: true }
 const items = Object.values(files).map((file: any) => file.default || file);
 ---
 
-<section id="education" class="section">
-  <div class="container">
-    <h2 class="section-title">Education</h2>
-    <div class="edu-grid">
-      {items.length > 0 ? (
-        items.map((item: any) => (
+{items.length > 0 && (
+  <section id="education" class="section" aria-label="Education History">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Academic Credentials</span>
+        <h2 class="section-title">Education</h2>
+      </div>
+
+      <div class="edu-grid">
+        {items.map((item: any) => (
           <div class="edu-card">
-            <span class="edu-dates"><i class="fa-regular fa-calendar"></i> {item.dates}</span>
-            <h3 class="edu-degree">{item.degree}</h3>
+            <div class="edu-header">
+              <span class="edu-dates"><i class="fa-regular fa-calendar" aria-hidden="true"></i> {item.dates}</span>
+              <h3 class="edu-degree">{item.degree}</h3>
+            </div>
             <h4 class="edu-field">{item.field}</h4>
-            <p class="edu-institution"><i class="fa-solid fa-building-columns"></i> {item.institution}</p>
+            <p class="edu-institution">
+              <i class="fa-solid fa-building-columns" aria-hidden="true"></i> {item.institution}
+            </p>
+            {item.description && <p class="edu-desc">{item.description}</p>}
           </div>
-        ))
-      ) : (
-        <p class="empty-msg">No education records added yet.</p>
-      )}
+        ))}
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+)}
 
 <style>
   .edu-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
+    gap: var(--space-md);
   }
+
   .edu-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    padding: 2rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    transition: transform 0.2s, border-color 0.2s;
+    padding: var(--space-lg);
+    transition: var(--transition-normal);
   }
+
   .edu-card:hover {
     transform: translateY(-3px);
-    border-color: var(--accent-primary);
+    border-color: var(--color-border-hover);
+    background: var(--color-bg-card-hover);
   }
+
   .edu-dates {
-    font-size: 0.85rem;
-    color: var(--accent-primary);
-    font-weight: 600;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-brand-primary);
   }
+
   .edu-degree {
-    font-size: 1.2rem;
-    margin-top: 0.5rem;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-main);
+    margin-top: var(--space-3xs);
   }
+
   .edu-field {
-    font-size: 0.95rem;
-    color: var(--text-muted);
+    font-size: var(--font-size-base);
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--space-xs);
   }
+
   .edu-institution {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-top: 0.5rem;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-dim);
   }
-  .empty-msg {
-    text-align: center;
-    color: var(--text-muted);
-    grid-column: 1 / -1;
+
+  .edu-desc {
+    margin-top: var(--space-xs);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
   }
 </style>

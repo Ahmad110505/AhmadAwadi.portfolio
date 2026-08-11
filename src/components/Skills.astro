@@ -1,56 +1,90 @@
 ---
 const files = import.meta.glob('../../content/skills/*.json', { eager: true });
 const skillFiles = Object.values(files).map((file: any) => file.default || file);
-const skillsData = skillFiles.flat();
+const skills = skillFiles.flat();
+
+// Group skills by category
+const categories: Record<string, string[]> = {};
+skills.forEach((s: any) => {
+  const cat = s.category || 'General';
+  if (!categories[cat]) categories[cat] = [];
+  categories[cat].push(s.name);
+});
+const catKeys = Object.keys(categories);
 ---
 
-<section id="skills" class="section">
-  <div class="container">
-    <h2 class="section-title">Skills</h2>
-    <div class="skills-grid">
-      {skillsData.length > 0 ? (
-        skillsData.map((skill: any) => (
-          <div class="skill-badge">
-            <i class="fa-solid fa-code"></i>
-            <span>{skill.name}</span>
+{skills.length > 0 && (
+  <section id="skills" class="section" aria-label="Technical Skills Grid">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Technical Competencies</span>
+        <h2 class="section-title">Skills & Expertise</h2>
+      </div>
+
+      <div class="skills-categories">
+        {catKeys.map((cat) => (
+          <div class="skill-category-block">
+            <h3 class="category-title">{cat}</h3>
+            <div class="skills-grid">
+              {categories[cat].map((skillName) => (
+                <div class="skill-pill">
+                  <i class="fa-solid fa-code" aria-hidden="true"></i>
+                  <span>{skillName}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        ))
-      ) : (
-        <p class="empty-msg">No skills added yet.</p>
-      )}
+        ))}
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+)}
 
 <style>
+  .skills-categories {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    max-width: 950px;
+    margin: 0 auto;
+  }
+
+  .category-title {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-brand-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: var(--space-xs);
+  }
+
   .skills-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    max-width: 850px;
-    margin: 0 auto;
+    gap: var(--space-xs);
   }
-  .skill-badge {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    padding: 0.75rem 1.25rem;
+
+  .skill-pill {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    padding: 0.6rem 1.25rem;
     border-radius: var(--radius-sm);
-    display: flex;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-main);
+    display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    font-weight: 500;
-    transition: transform 0.2s, border-color 0.2s;
+    gap: var(--space-2xs);
+    transition: var(--transition-fast);
   }
-  .skill-badge:hover {
+
+  .skill-pill:hover {
+    border-color: var(--color-brand-primary);
     transform: translateY(-2px);
-    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-sm);
   }
-  .skill-badge i {
-    color: var(--accent-primary);
-  }
-  .empty-msg {
-    text-align: center;
-    color: var(--text-muted);
+
+  .skill-pill i {
+    color: var(--color-brand-primary);
   }
 </style>

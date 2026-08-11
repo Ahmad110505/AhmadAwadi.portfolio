@@ -3,61 +3,101 @@ const files = import.meta.glob('../../content/certifications/*.json', { eager: t
 const certs = Object.values(files).map((file: any) => file.default || file);
 ---
 
-<section id="certifications" class="section">
-  <div class="container">
-    <h2 class="section-title">Certifications</h2>
-    <div class="certs-grid">
-      {certs.length > 0 ? (
-        certs.map((c: any) => (
+{certs.length > 0 && (
+  <section id="certifications" class="section" aria-label="Certifications and Qualifications">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">Verified Credentials</span>
+        <h2 class="section-title">Certifications</h2>
+      </div>
+
+      <div class="certs-grid">
+        {certs.map((c: any) => (
           <div class="cert-card">
-            <div class="cert-icon"><i class="fa-solid fa-award"></i></div>
-            <div>
+            <div class="cert-icon" aria-hidden="true">
+              <i class="fa-solid fa-award"></i>
+            </div>
+            <div class="cert-info">
               <h3 class="cert-title">{c.title}</h3>
-              <p class="cert-issuer">{c.issuer} • {c.date}</p>
+              <p class="cert-issuer">{c.issuer} • <span>{c.date}</span></p>
+              {c.credentialUrl && (
+                <a 
+                  href={c.credentialUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="cert-link" 
+                  aria-label={`View credential for ${c.title}`}
+                >
+                  Verify Credential <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                </a>
+              )}
             </div>
           </div>
-        ))
-      ) : (
-        <p class="empty-msg">No certifications added yet.</p>
-      )}
+        ))}
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+)}
 
 <style>
   .certs-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-md);
   }
+
   .cert-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    padding: 1.5rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
+    padding: var(--space-md);
     display: flex;
     align-items: center;
-    gap: 1rem;
-    transition: transform 0.2s, border-color 0.2s;
+    gap: var(--space-md);
+    transition: var(--transition-normal);
   }
+
   .cert-card:hover {
     transform: translateY(-3px);
-    border-color: var(--accent-secondary);
+    border-color: var(--color-border-hover);
   }
+
   .cert-icon {
-    font-size: 1.5rem;
-    color: var(--accent-secondary);
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    background: rgba(168, 85, 247, 0.15);
+    color: var(--color-brand-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
   }
+
   .cert-title {
-    font-size: 1rem;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-main);
   }
+
   .cert-issuer {
-    font-size: 0.85rem;
-    color: var(--text-muted);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
   }
-  .empty-msg {
-    text-align: center;
-    color: var(--text-muted);
-    grid-column: 1 / -1;
+
+  .cert-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: var(--font-size-xs);
+    color: var(--color-brand-primary);
+    text-decoration: none;
+    margin-top: var(--space-3xs);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .cert-link:hover {
+    text-decoration: underline;
   }
 </style>

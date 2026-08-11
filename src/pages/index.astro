@@ -9,11 +9,16 @@ import Projects from '../components/Projects.astro';
 import Skills from '../components/Skills.astro';
 import Certifications from '../components/Certifications.astro';
 import Contact from '../components/Contact.astro';
+
+import profileData from '../../content/profile.json';
+
+const pageTitle = `${profileData.name} | ${profileData.title}`;
+const pageDesc = profileData.shortIntro || profileData.about;
 ---
 
-<Layout title="Ahmad Awadi | Student Portfolio Template">
+<Layout title={pageTitle} description={pageDesc} authorName={profileData.name} authorTitle={profileData.title}>
   <Header />
-  <main>
+  <main id="main-content" tab-index="-1">
     <Hero />
     <About />
     <Education />
@@ -23,4 +28,33 @@ import Contact from '../components/Contact.astro';
     <Certifications />
     <Contact />
   </main>
+  
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>&copy; {new Date().getFullYear()} {profileData.name}. All rights reserved.</p>
+      <p class="footer-credit">Built with Astro & TypeScript</p>
+    </div>
+  </footer>
 </Layout>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    padding: var(--space-lg) 0;
+    background: var(--color-bg-base);
+    color: var(--color-text-dim);
+    font-size: var(--font-size-xs);
+  }
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .footer-credit {
+    color: var(--color-text-muted);
+  }
+</style>
