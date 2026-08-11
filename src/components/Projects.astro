@@ -1,29 +1,44 @@
 ---
-import proj1 from '../../content/projects/project-1.json';
-const projects = [proj1];
+const files = import.meta.glob('../../content/projects/*.json', { eager: true });
+const projects = Object.values(files).map((file: any) => file.default || file);
 ---
 
 <section id="projects" class="section">
   <div class="container">
     <h2 class="section-title">Projects</h2>
     <div class="projects-grid">
-      {projects.map(proj => (
-        <article class="project-card">
-          <div class="project-body">
-            <h3 class="project-title">{proj.title}</h3>
-            <p class="project-desc">{proj.description}</p>
-            <div class="tech-tags">
-              {proj.technologies.map(tech => (
-                <span class="tag">{tech}</span>
-              ))}
+      {projects.length > 0 ? (
+        projects.map((proj: any) => (
+          <article class="project-card">
+            {proj.image && (
+              <div class="project-img-wrapper">
+                <img src={proj.image} alt={proj.title} class="project-img" />
+              </div>
+            )}
+            <div class="project-body">
+              <h3 class="project-title">{proj.title}</h3>
+              <p class="project-desc">{proj.description}</p>
+              {proj.technologies && (
+                <div class="tech-tags">
+                  {proj.technologies.map((tech: string) => (
+                    <span class="tag">{tech}</span>
+                  ))}
+                </div>
+              )}
+              <div class="project-links">
+                {proj.github && (
+                  <a href={proj.github} target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> Code</a>
+                )}
+                {proj.demo && (
+                  <a href={proj.demo} target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+                )}
+              </div>
             </div>
-            <div class="project-links">
-              <a href={proj.github} target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> Code</a>
-              <a href={proj.demo} target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Demo</a>
-            </div>
-          </div>
-        </article>
-      ))}
+          </article>
+        ))
+      ) : (
+        <p class="empty-msg">No projects added yet.</p>
+      )}
     </div>
   </div>
 </section>
@@ -38,7 +53,30 @@ const projects = [proj1];
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-primary);
+  }
+  .project-img-wrapper {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+  }
+  .project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .project-body {
     padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
   }
   .project-title {
     font-size: 1.25rem;
@@ -48,6 +86,7 @@ const projects = [proj1];
     color: var(--text-muted);
     font-size: 0.95rem;
     margin-bottom: 1.25rem;
+    flex-grow: 1;
   }
   .tech-tags {
     display: flex;
@@ -64,7 +103,7 @@ const projects = [proj1];
   }
   .project-links {
     display: flex;
-    gap: 1rem;
+    gap: 1.25rem;
   }
   .project-links a {
     color: var(--text-main);
@@ -74,5 +113,10 @@ const projects = [proj1];
   }
   .project-links a:hover {
     color: var(--accent-primary);
+  }
+  .empty-msg {
+    text-align: center;
+    color: var(--text-muted);
+    grid-column: 1 / -1;
   }
 </style>

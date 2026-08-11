@@ -1,21 +1,25 @@
 ---
-import cert1 from '../../content/certifications/cert-1.json';
-const certs = [cert1];
+const files = import.meta.glob('../../content/certifications/*.json', { eager: true });
+const certs = Object.values(files).map((file: any) => file.default || file);
 ---
 
 <section id="certifications" class="section">
   <div class="container">
     <h2 class="section-title">Certifications</h2>
     <div class="certs-grid">
-      {certs.map(c => (
-        <div class="cert-card">
-          <div class="cert-icon"><i class="fa-solid fa-award"></i></div>
-          <div>
-            <h3 class="cert-title">{c.title}</h3>
-            <p class="cert-issuer">{c.issuer} • {c.date}</p>
+      {certs.length > 0 ? (
+        certs.map((c: any) => (
+          <div class="cert-card">
+            <div class="cert-icon"><i class="fa-solid fa-award"></i></div>
+            <div>
+              <h3 class="cert-title">{c.title}</h3>
+              <p class="cert-issuer">{c.issuer} • {c.date}</p>
+            </div>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p class="empty-msg">No certifications added yet.</p>
+      )}
     </div>
   </div>
 </section>
@@ -34,6 +38,11 @@ const certs = [cert1];
     display: flex;
     align-items: center;
     gap: 1rem;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .cert-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-secondary);
   }
   .cert-icon {
     font-size: 1.5rem;
@@ -45,5 +54,10 @@ const certs = [cert1];
   .cert-issuer {
     font-size: 0.85rem;
     color: var(--text-muted);
+  }
+  .empty-msg {
+    text-align: center;
+    color: var(--text-muted);
+    grid-column: 1 / -1;
   }
 </style>

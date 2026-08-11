@@ -1,17 +1,23 @@
 ---
-import skillsData from '../../content/skills/skills.json';
+const files = import.meta.glob('../../content/skills/*.json', { eager: true });
+const skillFiles = Object.values(files).map((file: any) => file.default || file);
+const skillsData = skillFiles.flat();
 ---
 
 <section id="skills" class="section">
   <div class="container">
     <h2 class="section-title">Skills</h2>
     <div class="skills-grid">
-      {skillsData.map(skill => (
-        <div class="skill-badge">
-          <i class="fa-solid fa-code"></i>
-          <span>{skill.name}</span>
-        </div>
-      ))}
+      {skillsData.length > 0 ? (
+        skillsData.map((skill: any) => (
+          <div class="skill-badge">
+            <i class="fa-solid fa-code"></i>
+            <span>{skill.name}</span>
+          </div>
+        ))
+      ) : (
+        <p class="empty-msg">No skills added yet.</p>
+      )}
     </div>
   </div>
 </section>
@@ -34,8 +40,17 @@ import skillsData from '../../content/skills/skills.json';
     align-items: center;
     gap: 0.6rem;
     font-weight: 500;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .skill-badge:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-primary);
   }
   .skill-badge i {
     color: var(--accent-primary);
+  }
+  .empty-msg {
+    text-align: center;
+    color: var(--text-muted);
   }
 </style>

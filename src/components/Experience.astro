@@ -1,24 +1,28 @@
 ---
-import exp1 from '../../content/experience/experience-1.json';
-const items = [exp1];
+const files = import.meta.glob('../../content/experience/*.json', { eager: true });
+const items = Object.values(files).map((file: any) => file.default || file);
 ---
 
 <section id="experience" class="section">
   <div class="container">
-    <h2 class="section-title">Experience</h2>
+    <h2 class="section-title">Work Experience</h2>
     <div class="exp-timeline">
-      {items.map(item => (
-        <div class="exp-card">
-          <div class="exp-header">
-            <div>
-              <h3 class="exp-position">{item.position}</h3>
-              <h4 class="exp-company">{item.company}</h4>
+      {items.length > 0 ? (
+        items.map((item: any) => (
+          <div class="exp-card">
+            <div class="exp-header">
+              <div>
+                <h3 class="exp-position">{item.position}</h3>
+                <h4 class="exp-company">{item.company}</h4>
+              </div>
+              <span class="exp-dates">{item.dates}</span>
             </div>
-            <span class="exp-dates">{item.dates}</span>
+            <p class="exp-desc">{item.description}</p>
           </div>
-          <p class="exp-desc">{item.description}</p>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p class="empty-msg">No work experience added yet.</p>
+      )}
     </div>
   </div>
 </section>
@@ -36,6 +40,11 @@ const items = [exp1];
     border: 1px solid var(--border-color);
     padding: 1.75rem;
     border-radius: var(--radius-md);
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .exp-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-primary);
   }
   .exp-header {
     display: flex;
@@ -57,5 +66,9 @@ const items = [exp1];
   .exp-desc {
     color: var(--text-muted);
     font-size: 0.95rem;
+  }
+  .empty-msg {
+    text-align: center;
+    color: var(--text-muted);
   }
 </style>

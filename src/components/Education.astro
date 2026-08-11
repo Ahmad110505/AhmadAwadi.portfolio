@@ -1,20 +1,24 @@
 ---
-import edu1 from '../../content/education/education-1.json';
-const items = [edu1];
+const files = import.meta.glob('../../content/education/*.json', { eager: true });
+const items = Object.values(files).map((file: any) => file.default || file);
 ---
 
 <section id="education" class="section">
   <div class="container">
     <h2 class="section-title">Education</h2>
     <div class="edu-grid">
-      {items.map(item => (
-        <div class="edu-card">
-          <span class="edu-dates"><i class="fa-regular fa-calendar"></i> {item.dates}</span>
-          <h3 class="edu-degree">{item.degree}</h3>
-          <h4 class="edu-field">{item.field}</h4>
-          <p class="edu-institution"><i class="fa-solid fa-building-columns"></i> {item.institution}</p>
-        </div>
-      ))}
+      {items.length > 0 ? (
+        items.map((item: any) => (
+          <div class="edu-card">
+            <span class="edu-dates"><i class="fa-regular fa-calendar"></i> {item.dates}</span>
+            <h3 class="edu-degree">{item.degree}</h3>
+            <h4 class="edu-field">{item.field}</h4>
+            <p class="edu-institution"><i class="fa-solid fa-building-columns"></i> {item.institution}</p>
+          </div>
+        ))
+      ) : (
+        <p class="empty-msg">No education records added yet.</p>
+      )}
     </div>
   </div>
 </section>
@@ -30,6 +34,11 @@ const items = [edu1];
     border: 1px solid var(--border-color);
     padding: 2rem;
     border-radius: var(--radius-md);
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .edu-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-primary);
   }
   .edu-dates {
     font-size: 0.85rem;
@@ -48,5 +57,10 @@ const items = [edu1];
     font-size: 0.85rem;
     color: var(--text-muted);
     margin-top: 0.5rem;
+  }
+  .empty-msg {
+    text-align: center;
+    color: var(--text-muted);
+    grid-column: 1 / -1;
   }
 </style>
