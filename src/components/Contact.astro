@@ -19,7 +19,7 @@ const hasContact = email || linkedin || github;
       </div>
 
       <div class="contact-grid">
-        <div class="contact-card">
+        <div class="contact-card clean-card">
           {email && (
             <div class="contact-item">
               <div class="contact-icon" aria-hidden="true">
@@ -62,7 +62,7 @@ const hasContact = email || linkedin || github;
         </div>
 
         <form 
-          class="contact-form" 
+          class="contact-form clean-card" 
           aria-label="Direct Message Form" 
           onsubmit="alert('Thank you for reaching out!'); return false;"
         >
@@ -80,7 +80,7 @@ const hasContact = email || linkedin || github;
             <textarea id="contact-message" placeholder="Your Message..." rows="4" required class="form-input"></textarea>
           </div>
           <button type="submit" class="btn btn-primary">
-            Send Message <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+            Send Message
           </button>
         </form>
       </div>
@@ -93,25 +93,21 @@ const hasContact = email || linkedin || github;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-xl);
-    max-width: 1000px;
+    max-width: 950px;
     margin: 0 auto;
   }
 
   .contact-card, .contact-form {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
     padding: var(--space-xl);
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
-    box-shadow: var(--shadow-sm);
   }
 
   .form-title {
     font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text-main);
+    font-weight: 700;
+    color: var(--text-primary);
   }
 
   .contact-item {
@@ -121,36 +117,37 @@ const hasContact = email || linkedin || github;
   }
 
   .contact-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    background: rgba(99, 102, 241, 0.1);
-    color: var(--color-brand-primary);
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-xs);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     flex-shrink: 0;
   }
 
   .contact-label {
     display: block;
     font-size: var(--font-size-xs);
-    color: var(--color-text-dim);
+    color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 1px;
   }
 
   .contact-link {
     font-size: var(--font-size-sm);
-    color: var(--color-text-main);
+    color: var(--text-primary);
     text-decoration: none;
-    font-weight: var(--font-weight-semibold);
+    font-weight: 600;
     transition: var(--transition-fast);
   }
 
   .contact-link:hover {
-    color: var(--color-brand-primary);
+    color: var(--text-secondary);
   }
 
   .form-group {
@@ -159,45 +156,41 @@ const hasContact = email || linkedin || github;
 
   .form-input {
     width: 100%;
-    background: var(--color-bg-input);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    padding: 0.85rem 1.1rem;
-    color: var(--color-text-main);
-    font-family: var(--font-family-sans);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xs);
+    padding: 0.75rem 1rem;
+    color: var(--text-primary);
+    font-family: var(--font-family-body);
     font-size: var(--font-size-sm);
     outline: none;
     transition: var(--transition-fast);
   }
 
   .form-input:focus {
-    border-color: var(--color-border-focus);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    border-color: var(--border-strong);
   }
 
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-2xs);
-    padding: 0.85rem;
-    border-radius: var(--radius-sm);
-    font-weight: var(--font-weight-semibold);
+    padding: 0.75rem;
+    border-radius: var(--radius-xs);
+    font-weight: 600;
     font-size: var(--font-size-sm);
     cursor: pointer;
     border: none;
-    transition: var(--transition-normal);
+    transition: var(--transition-fast);
   }
 
   .btn-primary {
-    background: var(--color-brand-gradient);
-    color: #ffffff;
-    box-shadow: var(--shadow-sm);
+    background: var(--text-primary);
+    color: var(--bg-primary);
   }
 
   .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-glow);
+    background: #e4e4e7;
   }
 
   @media (max-width: 768px) {

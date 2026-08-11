@@ -7,13 +7,13 @@ const items = Object.values(files).map((file: any) => file.default || file);
   <section id="education" class="section" aria-label="Education History">
     <div class="container">
       <div class="section-header">
-        <span class="section-subtitle">Academic Credentials</span>
+        <span class="section-subtitle">Academic Background</span>
         <h2 class="section-title">Education</h2>
       </div>
 
       <div class="edu-grid">
         {items.map((item: any) => (
-          <div class="edu-card">
+          <div class="edu-card clean-card">
             <div class="edu-header">
               <span class="edu-dates"><i class="fa-regular fa-calendar" aria-hidden="true"></i> {item.dates}</span>
               <h3 class="edu-degree">{item.degree}</h3>
@@ -38,47 +38,37 @@ const items = Object.values(files).map((file: any) => file.default || file);
   }
 
   .edu-card {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
     padding: var(--space-lg);
-    transition: var(--transition-normal);
-  }
-
-  .edu-card:hover {
-    transform: translateY(-3px);
-    border-color: var(--color-border-hover);
-    background: var(--color-bg-card-hover);
   }
 
   .edu-dates {
     font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-brand-primary);
+    font-weight: 600;
+    color: var(--text-muted);
   }
 
   .edu-degree {
     font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text-main);
+    font-weight: 700;
+    color: var(--text-primary);
     margin-top: var(--space-3xs);
   }
 
   .edu-field {
     font-size: var(--font-size-base);
-    color: var(--color-text-muted);
-    font-weight: var(--font-weight-medium);
+    color: var(--text-secondary);
+    font-weight: 500;
     margin-bottom: var(--space-xs);
   }
 
   .edu-institution {
     font-size: var(--font-size-sm);
-    color: var(--color-text-dim);
+    color: var(--text-dim);
   }
 
   .edu-desc {
     margin-top: var(--space-xs);
     font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
+    color: var(--text-muted);
   }
 </style>

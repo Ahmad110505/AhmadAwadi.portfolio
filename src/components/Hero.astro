@@ -2,9 +2,9 @@
 import profileData from '../../content/profile.json';
 
 const {
-  name = "Student Name",
-  title = "Software Engineer",
-  shortIntro = "Building scalable digital solutions.",
+  name = "Ahmad Awadi",
+  title = "Software Engineering Student & Developer",
+  shortIntro = "Building clean, high-performance web applications and intuitive digital systems.",
   profileImage = "/images/profile.jpg",
   cvUrl = "/files/cv.pdf"
 } = profileData || {};
@@ -14,7 +14,7 @@ const {
   <div class="container hero-grid">
     <div class="hero-content">
       <div class="hero-status" role="status">
-        <span class="status-dot"></span> Available for Engineering Roles
+        <span class="status-dot"></span> Available for engineering roles
       </div>
       
       <h1 class="hero-name">{name}</h1>
@@ -23,18 +23,17 @@ const {
       
       <div class="hero-actions">
         {cvUrl && (
-          <a href={cvUrl} class="btn btn-primary" download aria-label="Download CV Document">
-            <i class="fa-solid fa-download" aria-hidden="true"></i> Download CV
+          <a href={cvUrl} class="btn btn-primary" download aria-label="Download CV">
+            <i class="fa-solid fa-arrow-down-long" aria-hidden="true"></i> Resume / CV
           </a>
         )}
-        <a href="#contact" class="btn btn-outline" aria-label="Navigate to Contact Section">
-          <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Contact Me
+        <a href="#contact" class="btn btn-outline" aria-label="Contact Me">
+          Get in Touch
         </a>
       </div>
     </div>
 
     <div class="hero-image-container">
-      <div class="glow-bg" aria-hidden="true"></div>
       {profileImage ? (
         <img 
           src={profileImage} 
@@ -44,7 +43,7 @@ const {
           onerror="this.style.display='none';"
         />
       ) : (
-        <div class="avatar-placeholder" aria-label="Profile Avatar Placeholder">
+        <div class="avatar-placeholder" aria-label="Profile Placeholder">
           <i class="fa-solid fa-user" aria-hidden="true"></i>
         </div>
       )}
@@ -54,8 +53,8 @@ const {
 
 <style>
   .hero-section {
-    min-height: 85vh;
-    padding-top: calc(var(--space-3xl) + 2rem);
+    min-height: 80vh;
+    padding-top: calc(var(--space-3xl) + 1rem);
     padding-bottom: var(--space-2xl);
     display: flex;
     align-items: center;
@@ -64,7 +63,7 @@ const {
   .hero-grid {
     display: grid;
     grid-template-columns: 1.2fr 0.8fr;
-    gap: var(--space-xl);
+    gap: var(--space-2xl);
     align-items: center;
   }
 
@@ -72,46 +71,46 @@ const {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2xs);
-    padding: var(--space-3xs) var(--space-xs);
-    background: rgba(16, 185, 129, 0.1);
-    color: var(--color-status-success);
-    border: 1px solid rgba(16, 185, 129, 0.25);
+    padding: 0.3rem 0.75rem;
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-subtle);
     border-radius: var(--radius-full);
     font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-semibold);
-    margin-bottom: var(--space-sm);
+    font-weight: 500;
+    margin-bottom: var(--space-md);
   }
 
   .status-dot {
-    width: 8px;
-    height: 8px;
-    background-color: var(--color-status-success);
+    width: 6px;
+    height: 6px;
+    background-color: #22c55e;
     border-radius: 50%;
   }
 
   .hero-name {
     font-family: var(--font-family-heading);
     font-size: var(--font-size-hero);
-    font-weight: var(--font-weight-extrabold);
-    line-height: var(--line-height-tight);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--text-primary);
+    letter-spacing: -1.5px;
     margin-bottom: var(--space-2xs);
-    background: linear-gradient(180deg, #ffffff 0%, #d1d5db 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 
   .hero-title {
     font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-brand-secondary);
+    font-weight: 500;
+    color: var(--text-secondary);
     margin-bottom: var(--space-sm);
   }
 
   .hero-intro {
     font-size: var(--font-size-base);
-    color: var(--color-text-muted);
+    color: var(--text-muted);
     margin-bottom: var(--space-lg);
-    max-width: 580px;
+    max-width: 540px;
+    line-height: 1.6;
   }
 
   .hero-actions {
@@ -125,74 +124,59 @@ const {
     align-items: center;
     justify-content: center;
     gap: var(--space-2xs);
-    padding: 0.8rem 1.6rem;
+    padding: 0.75rem 1.4rem;
     border-radius: var(--radius-sm);
-    font-weight: var(--font-weight-semibold);
+    font-weight: 600;
     font-size: var(--font-size-sm);
     text-decoration: none;
-    transition: var(--transition-normal);
+    transition: var(--transition-fast);
   }
 
   .btn-primary {
-    background: var(--color-brand-gradient);
-    color: #ffffff;
-    box-shadow: var(--shadow-sm);
+    background: var(--text-primary);
+    color: var(--bg-primary);
   }
 
   .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-glow);
+    background: #e4e4e7;
   }
 
   .btn-outline {
-    background: var(--color-bg-input);
-    border: 1px solid var(--color-border);
-    color: var(--color-text-main);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
   }
 
   .btn-outline:hover {
-    border-color: var(--color-border-hover);
-    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--border-strong);
+    background: var(--bg-card-hover);
   }
 
   .hero-image-container {
-    position: relative;
     display: flex;
     justify-content: center;
   }
 
-  .glow-bg {
-    position: absolute;
-    width: 260px;
-    height: 260px;
-    background: var(--color-brand-gradient);
-    filter: blur(70px);
-    opacity: 0.25;
-    border-radius: 50%;
-  }
-
   .hero-avatar {
-    position: relative;
-    z-index: 1;
-    width: 260px;
-    height: 260px;
+    width: 240px;
+    height: 240px;
     object-fit: cover;
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    border: 2px solid var(--color-border);
-    box-shadow: var(--shadow-lg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-card);
   }
 
   .avatar-placeholder {
     width: 240px;
     height: 240px;
-    border-radius: 50%;
-    background: var(--color-bg-card);
+    border-radius: var(--radius-lg);
+    background: var(--bg-surface);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 4rem;
-    color: var(--color-brand-primary);
-    border: 2px solid var(--color-border);
+    font-size: 3.5rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border-subtle);
   }
 
   @media (max-width: 992px) {

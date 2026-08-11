@@ -3,7 +3,7 @@
 
 <header class="navbar">
   <div class="container nav-container">
-    <a href="#hero" class="logo">AA<span>.</span></a>
+    <a href="#hero" class="logo">AA</a>
     <nav class="nav-links">
       <a href="#about">About</a>
       <a href="#education">Education</a>
@@ -23,24 +23,22 @@
     left: 0;
     width: 100%;
     z-index: 100;
-    background: rgba(10, 12, 16, 0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border-color);
+    background: rgba(9, 9, 11, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-subtle);
   }
   .nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
+    height: 64px;
   }
   .logo {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 800;
-    color: var(--text-main);
+    color: var(--text-primary);
     text-decoration: none;
-  }
-  .logo span {
-    color: var(--accent-primary);
+    letter-spacing: -0.5px;
   }
   .nav-links {
     display: flex;
@@ -48,20 +46,23 @@
     align-items: center;
   }
   .nav-links a {
-    color: var(--text-muted);
+    color: var(--text-secondary);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     font-weight: 500;
-    transition: color 0.2s;
+    transition: color var(--transition-fast);
   }
   .nav-links a:hover {
-    color: var(--text-main);
+    color: var(--text-primary);
   }
   .btn-nav {
-    padding: 0.4rem 1rem;
-    background: rgba(99, 102, 241, 0.15);
-    border: 1px solid var(--accent-primary);
+    padding: 0.35rem 0.85rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
     border-radius: var(--radius-sm);
-    color: var(--accent-primary) !important;
+    color: var(--text-primary) !important;
+  }
+  .btn-nav:hover {
+    border-color: var(--border-strong) !important;
   }
 </style>

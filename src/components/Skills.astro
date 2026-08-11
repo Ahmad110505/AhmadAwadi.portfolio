@@ -18,7 +18,7 @@ const catKeys = Object.keys(categories);
     <div class="container">
       <div class="section-header">
         <span class="section-subtitle">Technical Competencies</span>
-        <h2 class="section-title">Skills & Expertise</h2>
+        <h2 class="section-title">Skills</h2>
       </div>
 
       <div class="skills-categories">
@@ -28,7 +28,6 @@ const catKeys = Object.keys(categories);
             <div class="skills-grid">
               {categories[cat].map((skillName) => (
                 <div class="skill-pill">
-                  <i class="fa-solid fa-code" aria-hidden="true"></i>
                   <span>{skillName}</span>
                 </div>
               ))}
@@ -44,15 +43,15 @@ const catKeys = Object.keys(categories);
   .skills-categories {
     display: flex;
     flex-direction: column;
-    gap: var(--space-xl);
-    max-width: 950px;
+    gap: var(--space-lg);
+    max-width: 900px;
     margin: 0 auto;
   }
 
   .category-title {
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-brand-secondary);
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 1.5px;
     margin-bottom: var(--space-xs);
@@ -65,26 +64,18 @@ const catKeys = Object.keys(categories);
   }
 
   .skill-pill {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    padding: 0.6rem 1.25rem;
-    border-radius: var(--radius-sm);
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-xs);
     font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text-main);
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2xs);
+    font-weight: 500;
+    color: var(--text-primary);
     transition: var(--transition-fast);
   }
 
   .skill-pill:hover {
-    border-color: var(--color-brand-primary);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .skill-pill i {
-    color: var(--color-brand-primary);
+    border-color: var(--border-strong);
+    background: var(--bg-card-hover);
   }
 </style>
