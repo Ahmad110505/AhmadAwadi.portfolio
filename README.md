@@ -1,66 +1,91 @@
-# Portfolio Template & Architecture Blueprint
+# Commercial Student Portfolio Engine
 
-This repository contains a modular portfolio web template and content schema built directly from your requested structural specification.
+A production-grade, highly customizable portfolio template engine built with **Astro 4**, **TypeScript**, **Zod**, and **Decap CMS**. Designed for university students, early-career engineers, and creative professionals.
 
 ---
 
-## 📐 Portfolio Tree Structure
+## 🏛️ Architecture Overview
 
 ```text
-Portfolio
-│
-├── Hero
-│   ├── Name
-│   ├── Professional title
-│   ├── Short introduction
-│   ├── Profile image
-│   └── CV
-│
-├── About
-│
-├── Education
-│   ├── Institution
-│   ├── Degree
-│   ├── Field
-│   └── Dates
-│
-├── Experience
-│   ├── Company
-│   ├── Position
-│   ├── Description
-│   └── Dates
-│
-├── Projects
-│   ├── Title
-│   ├── Description
-│   ├── Technologies
-│   ├── Image
-│   ├── GitHub
-│   └── Demo
-│
-├── Skills
-│
-├── Certifications
-│
-└── Contact
-    ├── Email
-    ├── LinkedIn
-    └── GitHub
+Design Tokens (tokens.css)
+    ↓
+Type-Safe Content Schema (src/content/config.ts with Zod)
+    ↓
+SEO & Accessibility Engine (SEO.astro + SkipLink.astro + Layout.astro)
+    ↓
+Defensive Section Components (Hero, About, Education, Experience, Projects, Skills, Certs, Contact)
+    ↓
+Data-Driven Page & Admin Composition (index.astro & admin.astro)
 ```
 
 ---
 
-## 📁 Project Structure
+## ✨ Production Features
 
-- [`index.html`](file:///c:/Users/ahmad/Desktop/templates/index.html): Semantic HTML5 markup structured according to the exact section nodes above.
-- [`data.json`](file:///c:/Users/ahmad/Desktop/templates/data.json): Structured JSON data blueprint mirroring every property of your tree diagram.
-- [`styles.css`](file:///c:/Users/ahmad/Desktop/templates/styles.css): Modern dark-mode styling with glassmorphic cards, smooth scrolling, and responsive layouts.
-- [`script.js`](file:///c:/Users/ahmad/Desktop/templates/script.js): Light script for responsive navigation and dynamic JSON loading.
+- **Design System Tokens**: CSS Custom Properties for spacing scales (`--space-2xs` to `--space-3xl`), fluid typography (`clamp()`), semantic color palettes, and elevation shadows.
+- **Type-Safe Content Collections**: Strict Zod schema validation (`src/content/config.ts`) preventing runtime failures on missing fields.
+- **Defensive & Optional Sections**: Sections (Certifications, Experience, Projects, Skills, About) automatically hide when 0 content items exist, eliminating awkward empty UI blocks.
+- **Robust Edge Case Handling**: Image fallbacks for missing/broken images, 2-line title clamping, wrapping tech tags, and responsive timeline containers.
+- **Commercial SEO & Social Sharing**: Complete OpenGraph, Twitter Cards, Canonical links, and Schema.org `Person` JSON-LD structured data script.
+- **WCAG 2.1 AA Accessibility**: Skip-to-content keyboard link, high-contrast focus rings (`:focus-visible`), ARIA landmarks (`role="main"`, `aria-label`), and `prefers-reduced-motion` support.
+- **Content Management**: Interactive Web Admin GUI ([`/admin`](file:///c:/Users/ahmad/Desktop/templates/src/pages/admin.astro)) + Decap CMS integration connected to GitHub repository `Ahmad110505/AhmadAwadi.portfolio`.
 
 ---
 
-## 🛠️ How to Customize
+## 📁 Repository Structure
 
-1. **Update Data (`data.json`)**: Simply edit the JSON fields to update your Name, Title, Projects, Work Experience, Education, and Social Links.
-2. **Update Layout (`index.html`)**: HTML tags use descriptive semantic section IDs (`#hero`, `#about`, `#education`, `#experience`, `#projects`, `#skills`, `#certifications`, `#contact`).
-3. **Preview**: Open `index.html` directly in your browser or run a simple local web server (`npx serve .` or Live Server extension).
+```text
+student-portfolio-template/
+├── src/
+│   ├── components/
+│   │   ├── SEO.astro              # Meta, OpenGraph & Schema.org JSON-LD
+│   │   ├── SkipLink.astro         # Accessibility keyboard skip link
+│   │   ├── Header.astro           # Responsive navigation header
+│   │   ├── Hero.astro             # Hero section with avatar fallback
+│   │   ├── About.astro            # Bio overview section
+│   │   ├── Education.astro        # Academic background section
+│   │   ├── Experience.astro       # Work experience timeline
+│   │   ├── Projects.astro         # Projects grid with title clamping
+│   │   ├── Skills.astro           # Categorized skills grid
+│   │   ├── Certifications.astro   # Verified credentials
+│   │   └── Contact.astro          # Direct email & social links
+│   ├── content/
+│   │   └── config.ts              # Zod Content Collections definitions
+│   ├── layouts/
+│   │   └── Layout.astro           # Root HTML layout with SEO & SkipLink
+│   ├── pages/
+│   │   ├── index.astro            # Main portfolio page
+│   │   └── admin.astro            # Interactive Admin Panel GUI
+│   └── styles/
+│       ├── tokens.css             # Central Design Tokens
+│       └── global.css             # Global CSS reset & utilities
+├── content/                       # Content JSON files
+├── public/                        # Static assets (images, CV files)
+├── admin/                         # Decap CMS setup files
+├── portfolio-template-research/   # Open-Source research & legal catalog
+└── astro.config.mjs
+```
+
+---
+
+## 🛠️ Development & Build Commands
+
+```bash
+# Install dependencies
+npm install
+
+# Run local dev server (http://localhost:4321)
+npm run dev
+
+# Run diagnostic type check across templates
+npx astro check
+
+# Build production bundle
+npm run build
+```
+
+---
+
+## 📚 Open-Source Research Catalog
+
+Evaluated open-source portfolio repositories and legal licensing analyses are recorded in [`portfolio-template-research/`](file:///c:/Users/ahmad/Desktop/templates/portfolio-template-research/README.md).
