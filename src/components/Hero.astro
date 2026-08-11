@@ -1,0 +1,95 @@
+---
+import profileData from '../../content/profile.json';
+---
+
+<section id="hero" class="hero-section">
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <span class="badge"><i class="fa-solid fa-circle-dot"></i> Available for Student Projects</span>
+      <h1 class="name">{profileData.name}</h1>
+      <h2 class="title">{profileData.title}</h2>
+      <p class="intro">{profileData.shortIntro}</p>
+      
+      <div class="hero-actions">
+        <a href={profileData.cvUrl} class="btn btn-primary" download><i class="fa-solid fa-download"></i> Download CV</a>
+        <a href="#contact" class="btn btn-outline"><i class="fa-solid fa-paper-plane"></i> Contact Me</a>
+      </div>
+    </div>
+
+    <div class="hero-image-wrapper">
+      <img src={profileData.profileImage} alt={profileData.name} class="profile-img" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    min-height: 90vh;
+    padding-top: 120px;
+    display: flex;
+    align-items: center;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--accent-primary);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  .name {
+    font-size: 3.25rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+  .title {
+    font-size: 1.35rem;
+    color: var(--accent-secondary);
+    margin-bottom: 1rem;
+  }
+  .intro {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: var(--accent-gradient);
+    color: #fff;
+  }
+  .btn-outline {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+  }
+  .profile-img {
+    width: 280px;
+    height: 280px;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+  }
+</style>

@@ -1,0 +1,9 @@
+{
+  "id": "proj-1",
+  "title": "Ahmad Awadi Portfolio Template",
+  "description": "A modern, highly customizable student portfolio template built with Astro, TypeScript, and Decap CMS integration.",
+  "technologies": ["Astro", "TypeScript", "HTML5", "CSS3", "GitHub Actions"],
+  "image": "/images/portfolio-preview.jpg",
+  "github": "https://github.com/Ahmad110505/AhmadAwadi.portfolio",
+  "demo": "https://Ahmad110505.github.io/AhmadAwadi.portfolio"
+}

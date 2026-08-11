@@ -1,0 +1,59 @@
+backend:
+  name: github
+  repo: Ahmad110505/AhmadAwadi.portfolio
+  branch: main
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "profile"
+    label: "Profile Info"
+    files:
+      - file: "content/profile.json"
+        label: "Profile Data"
+        name: "profile"
+        fields:
+          - { label: "Name", name: "name", widget: "string" }
+          - { label: "Professional Title", name: "title", widget: "string" }
+          - { label: "Short Introduction", name: "shortIntro", widget: "text" }
+          - { label: "Profile Image", name: "profileImage", widget: "image" }
+          - { label: "CV URL/File", name: "cvUrl", widget: "file" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "LinkedIn", name: "linkedin", widget: "string" }
+          - { label: "GitHub", name: "github", widget: "string" }
+
+  - name: "education"
+    label: "Education"
+    folder: "content/education"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Institution", name: "institution", widget: "string" }
+      - { label: "Degree", name: "degree", widget: "string" }
+      - { label: "Field of Study", name: "field", widget: "string" }
+      - { label: "Dates", name: "dates", widget: "string" }
+
+  - name: "experience"
+    label: "Experience"
+    folder: "content/experience"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Company", name: "company", widget: "string" }
+      - { label: "Position", name: "position", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Dates", name: "dates", widget: "string" }
+
+  - name: "projects"
+    label: "Projects"
+    folder: "content/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Technologies", name: "technologies", widget: "list" }
+      - { label: "Project Image", name: "image", widget: "image" }
+      - { label: "GitHub Link", name: "github", widget: "string" }
+      - { label: "Live Demo Link", name: "demo", widget: "string" }

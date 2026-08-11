@@ -1,0 +1,41 @@
+---
+import skillsData from '../../content/skills/skills.json';
+---
+
+<section id="skills" class="section">
+  <div class="container">
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid">
+      {skillsData.map(skill => (
+        <div class="skill-badge">
+          <i class="fa-solid fa-code"></i>
+          <span>{skill.name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    max-width: 850px;
+    margin: 0 auto;
+  }
+  .skill-badge {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 500;
+  }
+  .skill-badge i {
+    color: var(--accent-primary);
+  }
+</style>

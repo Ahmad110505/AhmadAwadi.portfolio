@@ -1,0 +1,61 @@
+---
+import exp1 from '../../content/experience/experience-1.json';
+const items = [exp1];
+---
+
+<section id="experience" class="section">
+  <div class="container">
+    <h2 class="section-title">Experience</h2>
+    <div class="exp-timeline">
+      {items.map(item => (
+        <div class="exp-card">
+          <div class="exp-header">
+            <div>
+              <h3 class="exp-position">{item.position}</h3>
+              <h4 class="exp-company">{item.company}</h4>
+            </div>
+            <span class="exp-dates">{item.dates}</span>
+          </div>
+          <p class="exp-desc">{item.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .exp-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .exp-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 1.75rem;
+    border-radius: var(--radius-md);
+  }
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+  .exp-position {
+    font-size: 1.15rem;
+  }
+  .exp-company {
+    font-size: 0.9rem;
+    color: var(--accent-primary);
+  }
+  .exp-dates {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .exp-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+</style>

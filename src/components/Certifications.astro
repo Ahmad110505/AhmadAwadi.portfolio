@@ -1,0 +1,49 @@
+---
+import cert1 from '../../content/certifications/cert-1.json';
+const certs = [cert1];
+---
+
+<section id="certifications" class="section">
+  <div class="container">
+    <h2 class="section-title">Certifications</h2>
+    <div class="certs-grid">
+      {certs.map(c => (
+        <div class="cert-card">
+          <div class="cert-icon"><i class="fa-solid fa-award"></i></div>
+          <div>
+            <h3 class="cert-title">{c.title}</h3>
+            <p class="cert-issuer">{c.issuer} • {c.date}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .cert-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .cert-icon {
+    font-size: 1.5rem;
+    color: var(--accent-secondary);
+  }
+  .cert-title {
+    font-size: 1rem;
+  }
+  .cert-issuer {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+</style>
