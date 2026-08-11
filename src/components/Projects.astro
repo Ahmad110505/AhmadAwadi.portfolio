@@ -1,73 +1,96 @@
 ---
 const files = import.meta.glob('../../content/projects/*.json', { eager: true });
-const projects = Object.values(files).map((file: any) => file.default || file);
+const initialProjects = Object.values(files).map((file: any) => file.default || file);
 ---
 
-{projects.length > 0 && (
-  <section id="projects" class="section" aria-label="Featured Projects Showcase">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-subtitle">Portfolio Showcase</span>
-        <h2 class="section-title">Featured Projects</h2>
-      </div>
+<section id="projects" class="section" aria-label="Featured Projects Showcase">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-subtitle">Portfolio Showcase</span>
+      <h2 class="section-title">Featured Projects</h2>
+    </div>
 
-      <div class="projects-grid">
-        {projects.map((proj: any) => (
-          <article class="project-card">
-            {proj.image && (
-              <div class="project-img-wrapper">
-                <img 
-                  src={proj.image} 
-                  alt={`Screenshot preview of ${proj.title}`} 
-                  class="project-img" 
-                  loading="lazy"
-                  onerror="this.style.display='none';"
-                />
+    <div class="projects-grid" id="main-projects-grid">
+      {initialProjects.map((proj: any) => (
+        <article class="project-card glass-card" data-id={proj.id}>
+          {proj.image && (
+            <div class="project-img-wrapper">
+              <img 
+                src={proj.image} 
+                alt={`Preview of ${proj.title}`} 
+                class="project-img" 
+                loading="lazy"
+                onerror="this.style.display='none';"
+              />
+            </div>
+          )}
+          <div class="project-body">
+            <h3 class="project-title line-clamp-2">{proj.title}</h3>
+            <p class="project-desc line-clamp-3">{proj.description}</p>
+            
+            {proj.technologies && proj.technologies.length > 0 && (
+              <div class="tech-tags">
+                {proj.technologies.map((tech: string) => (
+                  <span class="tag">{tech}</span>
+                ))}
               </div>
             )}
-            <div class="project-body">
-              <h3 class="project-title line-clamp-2">{proj.title}</h3>
-              <p class="project-desc line-clamp-3">{proj.description}</p>
-              
-              {proj.technologies && proj.technologies.length > 0 && (
-                <div class="tech-tags" aria-label="Technologies used">
-                  {proj.technologies.map((tech: string) => (
-                    <span class="tag">{tech}</span>
-                  ))}
-                </div>
-              )}
 
-              <div class="project-links">
-                {proj.github && (
-                  <a 
-                    href={proj.github} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    class="project-link" 
-                    aria-label={`View GitHub repository for ${proj.title}`}
-                  >
-                    <i class="fa-brands fa-github" aria-hidden="true"></i> Code
-                  </a>
-                )}
-                {proj.demo && (
-                  <a 
-                    href={proj.demo} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    class="project-link demo-link" 
-                    aria-label={`View live demo for ${proj.title}`}
-                  >
-                    <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Live Demo
-                  </a>
-                )}
-              </div>
+            <div class="project-links">
+              {proj.github && (
+                <a href={proj.github} target="_blank" rel="noopener noreferrer" class="project-link">
+                  <i class="fa-brands fa-github" aria-hidden="true"></i> Code
+                </a>
+              )}
+              {proj.demo && (
+                <a href={proj.demo} target="_blank" rel="noopener noreferrer" class="project-link demo-link">
+                  <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Live Demo
+                </a>
+              )}
             </div>
-          </article>
-        ))}
-      </div>
+          </div>
+        </article>
+      ))}
     </div>
-  </section>
-)}
+  </div>
+</section>
+
+<script is:inline>
+  // Merge client-side added projects from localStorage
+  document.addEventListener('DOMContentLoaded', () => {
+    const grid = document.getElementById('main-projects-grid');
+    if (!grid) return;
+
+    const customProjects = JSON.parse(localStorage.getItem('custom_projects') || '[]');
+    customProjects.forEach(proj => {
+      // Check if already rendered
+      if (document.querySelector(`[data-id="${proj.id}"]`)) return;
+
+      const article = document.createElement('article');
+      article.className = 'project-card glass-card';
+      article.dataset.id = proj.id;
+
+      const techHtml = proj.technologies && proj.technologies.length > 0
+        ? `<div class="tech-tags">${proj.technologies.map(t => `<span class="tag">${t}</span>`).join('')}</div>`
+        : '';
+
+      const ghHtml = proj.github ? `<a href="${proj.github}" target="_blank" class="project-link"><i class="fa-brands fa-github"></i> Code</a>` : '';
+      const demoHtml = proj.demo ? `<a href="${proj.demo}" target="_blank" class="project-link demo-link"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>` : '';
+
+      article.innerHTML = `
+        ${proj.image ? `<div class="project-img-wrapper"><img src="${proj.image}" alt="${proj.title}" class="project-img" onerror="this.style.display='none';"/></div>` : ''}
+        <div class="project-body">
+          <h3 class="project-title line-clamp-2">${proj.title}</h3>
+          <p class="project-desc line-clamp-3">${proj.description}</p>
+          ${techHtml}
+          <div class="project-links">${ghHtml}${demoHtml}</div>
+        </div>
+      `;
+
+      grid.prepend(article);
+    });
+  });
+</script>
 
 <style>
   .projects-grid {
@@ -77,26 +100,15 @@ const projects = Object.values(files).map((file: any) => file.default || file);
   }
 
   .project-card {
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: var(--transition-normal);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .project-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--color-border-hover);
-    box-shadow: var(--shadow-md);
+    overflow: hidden;
   }
 
   .project-img-wrapper {
     width: 100%;
-    height: 190px;
-    background: var(--color-bg-surface);
+    height: 200px;
+    background: var(--bg-surface);
     overflow: hidden;
   }
 
@@ -108,7 +120,7 @@ const projects = Object.values(files).map((file: any) => file.default || file);
   }
 
   .project-card:hover .project-img {
-    transform: scale(1.04);
+    transform: scale(1.05);
   }
 
   .project-body {
@@ -120,13 +132,13 @@ const projects = Object.values(files).map((file: any) => file.default || file);
 
   .project-title {
     font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text-main);
+    font-weight: 700;
+    color: var(--text-primary);
     margin-bottom: var(--space-2xs);
   }
 
   .project-desc {
-    color: var(--color-text-muted);
+    color: var(--text-secondary);
     font-size: var(--font-size-sm);
     margin-bottom: var(--space-md);
     flex-grow: 1;
@@ -141,12 +153,12 @@ const projects = Object.values(files).map((file: any) => file.default || file);
 
   .tag {
     font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-semibold);
-    padding: 0.2rem 0.65rem;
-    background: rgba(99, 102, 241, 0.1);
-    color: var(--color-brand-primary);
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    background: rgba(99, 102, 241, 0.12);
+    color: var(--color-accent-primary);
     border-radius: var(--radius-full);
-    border: 1px solid rgba(99, 102, 241, 0.2);
+    border: 1px solid rgba(99, 102, 241, 0.25);
   }
 
   .project-links {
@@ -154,7 +166,7 @@ const projects = Object.values(files).map((file: any) => file.default || file);
     align-items: center;
     gap: var(--space-md);
     padding-top: var(--space-xs);
-    border-top: 1px solid var(--color-border);
+    border-top: 1px solid var(--border-subtle);
   }
 
   .project-link {
@@ -162,17 +174,17 @@ const projects = Object.values(files).map((file: any) => file.default || file);
     align-items: center;
     gap: 0.4rem;
     font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-main);
+    font-weight: 600;
+    color: var(--text-primary);
     text-decoration: none;
     transition: var(--transition-fast);
   }
 
   .project-link:hover {
-    color: var(--color-brand-primary);
+    color: var(--color-accent-primary);
   }
 
   .demo-link {
-    color: var(--color-brand-secondary);
+    color: var(--color-accent-secondary);
   }
 </style>
